@@ -1,0 +1,30 @@
+<?php
+//$URL="envbanco.php";
+//$URL="https://www.bancomer.com/egobierno/ggro/capama/principal/indexcapama.asp";
+
+$URL = "https://www.adquiramexico.com.mx/clb/endpoint/capama"; //Ultima URL de produccion en uso
+
+$IdBancomer="10640";
+$reference= $CIID."-".md5($cta);
+
+?>
+
+<form name='frmbanco' id= 'frmbanco' action = 'https://addquiramexico.com.mx/c/clb/endpoint/capama/' method='post'>
+    <input type="hidden" name="s_transm"     value="<?php echo $CIID; ?>"> <!-- -->
+    <input type="hidden" name="c_referencia" value="<?php echo formatoCuenta($cta); ?>"> <!-- -->
+    <input type="hidden" name="param_c_b_1"  value="<?php echo $IdBancomer; ?>"> <!-- Identificador de comercio -->
+    <input type="hidden" name="t_servicio"   value="53">  <!-- [t_servicio => 53] AGUA -->
+    <input type="hidden" name="t_importe"    value="<?php echo number_format($Total,2,".",""); ?>"> <!-- -->
+    <!-- <input type="hidden" name="param_c_b_2" value="0"> [0 => Default] -->
+    <input type="hidden" name="param_c_b_2"  value="2"> <!-- [2 => Movil] -->
+    <input type="hidden" name="param_c_b_3"  value="<?php echo DB2Chg(trim($Nombre)); ?>"> <!-- -->
+    <input type="hidden" name="param_c_b_4"  value="1">   <!-- -->
+    <input type="hidden" name="param_c_b_5"  value="1">   <!-- -->
+    <input type="hidden" name="param_c_b_6"  value="2">   <!-- [param_c_b_6 => 2]  Parámetro de bandera de financiamiento -->
+    <input type="hidden" name="param_c_b_7"  value="3|6"> <!-- [param_c_b_7 => 3|6] Los plazos a elegir, se envían todos o solo puede enviarse uno -->
+    <input type="hidden" name="param_c_b_10" value="<?php echo $Fecha; ?>"> <!-- -->
+
+    <input type="hidden" name="dato_contrato" value="<?php echo substr($reference,0,20);?>">
+    <input type="hidden" name="dato_origen" value="<?=$dato_origen;?>">
+    <input type="hidden" name="medio_de_pago" value="<?=$medioDePago;?>">
+</form>
